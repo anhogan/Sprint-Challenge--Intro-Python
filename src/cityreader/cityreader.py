@@ -70,7 +70,18 @@ for c in cities:
 # Tucson: (32.1558,-110.8777)
 # Salt Lake City: (40.7774,-111.9301)
 
+# UPER:
+# Is it one input or multiple? What if users enter in the wrong order? How do we sort so that it doesn't matter which corner is inputted? Efficient way to search through the list? Does it have to match both lat and long or just one or the other? 
+# Have four separate inputs ... set a search range for lat with smaller one first, same with lon ... list slice? ... example appears to match both
+
 # TODO Get latitude and longitude values from the user
+print("Welcome to City Search! Let's find the locations you want! We will compare two coordinates to find all cities in that square. To get started, enter the latitude of the first coordinate:\n")
+first_lat = input('Latitude: ')
+print('Excellent! Now for the first longitude: \n')
+first_lon = input('Longitude: ')
+print("Great, halway there! Let's do the second set: \n")
+second_lat = input('Latitude: ')
+second_lon = input('Longitude: ')
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
@@ -79,5 +90,25 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
+  if lat1 > lat2:
+    high_lat = lat1
+    low_lat = lat2
+  else:
+    high_lat = lat2
+    low_lat = lat1
+
+  if lon1 > lon2:
+    high_lon = lon1
+    low_lon = lon2
+  else:
+    high_lon = lon2
+    low_lon = lon1
+  
+  for c in cities:
+    if c.lat >= float(low_lat) and c.lat <= float(high_lat):
+      if c.lon >= float(low_lon) and c.lon <= float(high_lon):
+        within.append(c)
 
   return within
+
+cityreader_stretch(first_lat, first_lon, second_lat, second_lon, cities)
